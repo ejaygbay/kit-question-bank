@@ -1,10 +1,13 @@
 const express = require("express");
 const fs = require("fs");
+const { join } = require("path");
 const app = express();
 const PORT = 3000;
+const cors = require("cors");
+
 const ERR = {
   status: 1,
-  message: "Please enter a subject and the number of questions",
+  message: "Please enter a valid subject and the number of questions",
 };
 
 const ERR2 = {
@@ -13,6 +16,22 @@ const ERR2 = {
 };
 
 let subjects = ["math", "english"];
+
+app.use(express.urlencoded());
+app.use(express.json());
+app.use(express.static("public"));
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
+app.get("/", (req, res) => {
+  res.sendFile(`${__dirname}/index.html`);
+});
+
+// Access-Control-Allow-Origin:*
 
 app.get("/question/:subject/:questions", (req, res) => {
   let subject = req.params.subject;

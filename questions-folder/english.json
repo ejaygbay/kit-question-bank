@@ -1,1 +1,202 @@
-{ "hello": "english" }
+{
+    "Q1": {
+        "question": "I'm very happy _____ in India. I really miss being there. ",
+        "options": {
+            "a": "to live",
+            "b": "to have lived",
+            "c": "to be lived",
+            "d": "to be living"
+        },
+        "answer": "b"
+    },
+    "Q2": {
+        "question": "They didn't reach an agreement ______ their differences.",
+        "options": {
+            "a": "on account of",
+            "b": "due",
+            "c": "because",
+            "d": "owing"
+        },
+        "answer": "a"
+    },
+    "Q3": {
+        "question": "I wish I _____ those words. But now it's too late.",
+        "options": {
+            "a": "not having said",
+            "b": "have never said",
+            "c": "never said",
+            "d": "had never said"
+        },
+        "answer": "d"
+    },
+    "Q4": {
+        "question": "The woman, who has been missing for 10 days, is believed _____.",
+        "options": {
+            "a": "to be abducted",
+            "b": "to be abducting",
+            "c": "to have been abducted",
+            "d": "to have been abducting"
+        },
+        "answer": "c"
+    },
+    "Q5": {
+        "question": "She was working on her computer with her baby next to _____.",
+        "options": {
+            "a": "herself",
+            "b": "her",
+            "c": "her own",
+            "d": "hers"
+        },
+        "answer": "b"
+    },
+    "Q6": {
+        "question": "_____ to offend anyone, she said both cakes were equally good.",
+        "options": {
+            "a": "Not wanting",
+            "b": "As not wanting",
+            "c": "She didn't want",
+            "d": "Because not wanting"
+        },
+        "answer": "a"
+    },
+    "Q7": {
+        "question": "_____ in trying to solve this problem. It's clearly unsolvable.",
+        "options": {
+            "a": "There's no point",
+            "b": "It's no point",
+            "c": "There isn't point",
+            "d": "It's no need"
+        },
+        "answer": "a"
+    },
+    "Q8": {
+        "question": "Last year, when I last met her, she told me she _____ a letter every day for the last two months.",
+        "options": {
+            "a": "had written",
+            "b": "has written",
+            "c": "had been writing",
+            "d": "wrote"
+        },
+        "answer": "c"
+    },
+    "Q9": {
+        "question": "He _____ robbed as he was walking out of the bank.",
+        "options": {
+            "a": "had",
+            "b": "did",
+            "c": "got",
+            "d": "were"
+        },
+        "answer": "c"
+    },
+    "Q10": {
+        "question": "_____ forced to do anything. He acted of his own free will.",
+        "options": {
+            "a": "In no way was he",
+            "b": "No way he was",
+            "c": "In any way he was",
+            "d": "In any way was he"
+        },
+        "answer": "a"
+    },
+    "Q11": {
+        "question": "It _____ the best idea to pay for those tickets by credit card. It was too risky.",
+        "options": {
+            "a": "may not have been",
+            "b": "may not be",
+            "c": "might not be",
+            "d": "must not have been"
+        },
+        "answer": "a"
+    },
+    "Q12": {
+        "question": "They _____ in the basement for three months.",
+        "options": {
+            "a": "were made sleeping",
+            "b": "were made sleep",
+            "c": "were made to sleep",
+            "d": "made to sleep"
+        },
+        "answer": "c"
+    },
+    "Q13": {
+        "question": "We'll never know what might have happened _____ the email earlier.",
+        "options": {
+            "a": "if he sent",
+            "b": "had he sent",
+            "c": "if he has sent",
+            "d": "did he sent"
+        },
+        "answer": "b"
+    },
+    "Q14": {
+        "question": "If success _____, we need to prepare ourselves for every possible scenario.",
+        "options": {
+            "a": "is to be achieved",
+            "b": "is achieved",
+            "c": "will be achieved",
+            "d": "is due to achieve"
+        },
+        "answer": "a"
+    },
+    "Q15": {
+        "question": "______ gifts to the judges.",
+        "options": {
+            "a": "It's not allowed offering",
+            "b": "It's not permitted to offer",
+            "c": "It's not permitted offering",
+            "d": "It's not allowed to offer"
+        },
+        "answer": "b"
+    },
+    "Q16": {
+        "question": "I ______ bus on Mondays.",
+        "options": {
+            "a": "'m going to work with",
+            "b": "'m going to work by",
+            "c": "go to work with",
+            "d": "go to work by"
+        },
+        "answer": "d"
+    },
+    "Q17": {
+        "question": "Sorry, but this chair is ______.",
+        "options": {
+            "a": "me",
+            "b": "mine",
+            "c": "my",
+            "d": "our"
+        },
+        "answer": "b"
+    },
+    "Q18": {
+        "question": "I ______ to the cinema.",
+        "options": {
+            "a": "not usually go",
+            "b": "don't usually go",
+            "c": "don't go usually",
+            "d": "do not go usually"
+        },
+        "answer": "b"
+    },
+    "Q19": {
+        "question": "Where ______ ?",
+        "options": {
+            "a": "your sister works",
+            "b": "your sister work",
+            "c": "does your sister work",
+            "d": "do your sister work"
+        },
+        "answer": "c"
+    },
+    "Q20": {
+        "question": "The test is ______ February.",
+        "options": {
+            "a": "in",
+            "b": "at",
+            "c": "on",
+            "d": "over"
+        },
+        "answer": "a"
+    }
+}

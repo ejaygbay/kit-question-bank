@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>EXERCISE QUESTIONS</h1>
+
+    <section id="subject-selection">
+      <select name="subject" id="subject">
+        <option value="math">Mathematics</option>
+        <option value="english">English</option>
+        <option value="Science" disabled>Science</option>
+        <option value="history" disabled>History</option>
+      </select>
+      <select name="number" id="number">
+        <option value="2">2</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+      </select>
+      <input type="button" value="Submit" onclick="submitQuestion(event)" />
+    </section>
+    <section id="question-section">
+      <div id="score">Score: <span>0</span></div>
+      <div id="correct">Correct: <span>0</span></div>
+      <div id="wrong">Wrong: <span>0</span></div>
+
+      <section id="questions"></section>
+
+      <input type="button" value="Answer" onclick="submitAnswer(event)" />
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,62 +1,202 @@
 {
-  "Q1": {
-    "question": "1What is the answer for 2 + 2?",
-    "answer_options": {
-      "a": "3",
-      "b": "7",
-      "c": "2",
-      "d": "4"
+    "Q1": {
+        "question": "What is three fifth of 100?",
+        "options": {
+            "a": "3",
+            "b": "5",
+            "c": "20",
+            "d": "60"
+        },
+        "answer": "d"
     },
-    "correct_answer": "d"
-  },
-  "Q2": {
-    "question": "2What is the answer for 2 + 2?",
-    "answer_options": {
-      "a": "3",
-      "b": "7",
-      "c": "2",
-      "d": "4"
+    "Q2": {
+        "question": "If David’s age is 27 years old in 2011. What was his age in 2003?",
+        "options": {
+            "a": "17 years",
+            "b": "37 years",
+            "c": "20 years",
+            "d": "19 years"
+        },
+        "answer": "d"
     },
-    "correct_answer": "d"
-  },
-  "Q3": {
-    "question": "3What is the answer for 2 + 2?",
-    "answer_options": {
-      "a": "3",
-      "b": "7",
-      "c": "2",
-      "d": "4"
+    "Q3": {
+        "question": "What is the remainder of 21 divided by 7?",
+        "options": {
+            "a": "21",
+            "b": "7",
+            "c": "1",
+            "d": "None of these"
+        },
+        "answer": "d"
     },
-    "correct_answer": "d"
-  },
-  "Q4": {
-    "question": "4What is the answer for 2 + 2?",
-    "answer_options": {
-      "a": "3",
-      "b": "7",
-      "c": "2",
-      "d": "4"
+    "Q4": {
+        "question": "What is 7% equal to?",
+        "options": {
+            "a": "0.007",
+            "b": "0.07",
+            "c": "0.7",
+            "d": "7"
+        },
+        "answer": "b"
     },
-    "correct_answer": "d"
-  },
-  "Q5": {
-    "question": "5What is the answer for 2 + 2?",
-    "answer_options": {
-      "a": "3",
-      "b": "7",
-      "c": "2",
-      "d": "4"
+    "Q5": {
+        "question": "I am a number. I have 7 in the ones place. I am less than 80 but greater than 70. What is my number?",
+        "options": {
+            "a": "71",
+            "b": "73",
+            "c": "75",
+            "d": "77"
+        },
+        "answer": "d"
     },
-    "correct_answer": "d"
-  },
-  "Q6": {
-    "question": "6What is the answer for 2 + 2?",
-    "answer_options": {
-      "a": "3",
-      "b": "7",
-      "c": "2",
-      "d": "4"
+    "Q6": {
+        "question": "How many years are there in a decade?",
+        "options": {
+            "a": "5",
+            "b": "10",
+            "c": "15",
+            "d": "20"
+        },
+        "answer": "b"
     },
-    "correct_answer": "d"
-  }
+    "Q7": {
+        "question": "What is the square of 15?",
+        "options": {
+            "a": "15",
+            "b": "30",
+            "c": "252",
+            "d": "225"
+        },
+        "answer": "d"
+    },
+    "Q8": {
+        "question": "What is the value of x if x2 = 169",
+        "options": {
+            "a": "1",
+            "b": "13",
+            "c": "169",
+            "d": "338"
+        },
+        "answer": "b"
+    },
+    "Q9": {
+        "question": "What is the reciprocal of 17/15?",
+        "options": {
+            "a": "1.13",
+            "b": "15/17",
+            "c": "17/15",
+            "d": "30/34"
+        },
+        "answer": "b"
+    },
+    "Q10": {
+        "question": "In a century how many months are there",
+        "options": {
+            "a": "12",
+            "b": "120",
+            "c": "1200",
+            "d": "12000"
+        },
+        "answer": "c"
+    },
+    "Q11": {
+        "question": "How many digits are there in 1000?",
+        "options": {
+            "a": "One digit",
+            "b": "Two digits",
+            "c": "Three digits",
+            "d": "Four digits"
+        },
+        "answer": "d"
+    },
+    "Q12": {
+        "question": "Complete the sequence 13, 16, ……, 22.",
+        "options": {
+            "a": "17",
+            "b": "18",
+            "c": "19",
+            "d": "20"
+        },
+        "answer": "c"
+    },
+    "Q13": {
+        "question": "What is the largest two digits prime number?",
+        "options": {
+            "a": "96",
+            "b": "97",
+            "c": "98",
+            "d": "99"
+        },
+        "answer": "b"
+    },
+    "Q14": {
+        "question": "1 dime = …….. dollar",
+        "options": {
+            "a": "0.20",
+            "b": "10",
+            "c": "0.10",
+            "d": "0.01"
+        },
+        "answer": "c"
+    },
+    "Q15": {
+        "question": "How many factors are there in 71?",
+        "options": {
+            "a": "1",
+            "b": "2",
+            "c": "3",
+            "d": "None of these"
+        },
+        "answer": "b"
+    },
+    "Q16": {
+        "question": "Which is the largest number in 15/17, 15/18, 15/19, 15/21?",
+        "options": {
+            "a": "15/17",
+            "b": "15/18",
+            "c": "15/19",
+            "d": "15/21"
+        },
+        "answer": "a"
+    },
+    "Q17": {
+        "question": "What is the average value of 25, 20, 23 and 22?",
+        "options": {
+            "a": "20",
+            "b": "21.5",
+            "c": "22.5",
+            "d": "24"
+        },
+        "answer": "c"
+    },
+    "Q18": {
+        "question": "2 is a …………… number.",
+        "options": {
+            "a": "Odd",
+            "b": "Prime",
+            "c": "composite",
+            "d": "None of these."
+        },
+        "answer": "b"
+    },
+    "Q19": {
+        "question": "What is the sum of one digit prime numbers?",
+        "options": {
+            "a": "11",
+            "b": "13",
+            "c": "15",
+            "d": "17"
+        },
+        "answer": "d"
+    },
+    "Q20": {
+        "question": "How many hours in 90 minutes?",
+        "options": {
+            "a": "1.5 hours",
+            "b": "1.30 hours",
+            "c": "1 hour",
+            "d": "None of these."
+        },
+        "answer": "a"
+    }
 }
