@@ -1,0 +1,25 @@
+{
+  "name": "kit-question-bank",
+  "version": "1.0.0",
+  "description": "Question bank with accessment questions given to students in KIT.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ejaygbay/kit-question-bank.git"
+  },
+  "author": "Emmanuel Jaygbay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ejaygbay/kit-question-bank/issues"
+  },
+  "homepage": "https://github.com/ejaygbay/kit-question-bank#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "nodemon": "^2.0.7"
+  }
+}
