@@ -18,12 +18,12 @@ const submitQuestion = (e) => {
         let options = data.questions[ele].options;
         let option_keys = Object.keys(options);
 
-        let html = `<section id="question${index}">
+        let html = `<section id="question${index + 1}">
             <h3>Question ${index + 1}</h3>
             <div id="real-question">${question}</div>
 
             <section class="options" id="all-opts-${ele}"></section>
-            <div id="correct-ans">Correct Ans: ${answer}</div>
+            <div id="${ele}-${answer}" class="${ele}-answer answer">Correct Ans: ${answer}</div>
           </section>`;
 
         document
@@ -33,8 +33,8 @@ const submitQuestion = (e) => {
         option_keys.forEach((opt, ind) => {
           let html_que_options = `
               <div id="option${ind + 1}">
-                <input type="radio" id="${opt}" value="${opt}" name="${ele}-option" />
-                <label for="${opt}">${options[opt]}</label>
+                <input type="radio" id="${ele}-${opt}" value="${ele}-${opt}" name="${ele}-option" onclick="checkAnswer(event)" />
+                <label for="${ele}-${opt}">${options[opt]}</label>
               </div>`;
           document
             .getElementById(`all-opts-${ele}`)
@@ -45,7 +45,31 @@ const submitQuestion = (e) => {
     .catch((err) => console.error(err));
 };
 
-const submitAnswer = (e) => {
-  let user_ans = document.getElementById();
-  console.log("");
+const checkAnswer = (e) => {
+  let user_ans = e.target.id;
+  let correct_ans = document.querySelector(`.${user_ans.split("-")[0]}-answer`);
+  let correct_ans_id = correct_ans.id;
+
+  if (correct_ans_id === user_ans) {
+    correct_ans.classList.add("correct");
+    correct_ans.classList.remove("wrong");
+  } else {
+    correct_ans.classList.add("wrong");
+    correct_ans.classList.remove("correct");
+  }
+};
+
+const submitAnswers = (e) => {
+  console.log("Ans submited");
+  let correct = document.querySelectorAll(".correct");
+  let wrong = document.querySelectorAll(".wrong");
+
+  let point = 100 / (correct.length + wrong.length);
+
+  document.getElementById("score").innerHTML = `Score: ${
+    correct.length * point
+  }%`;
+  document.getElementById("correct").innerHTML = `Correct: ${correct.length}`;
+  document.getElementById("wrong").innerHTML = `Wrong: ${wrong.length}`;
+  console.log(correct.length, wrong.length, point);
 };
