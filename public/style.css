@@ -2,6 +2,7 @@ body {
   box-sizing: border-box;
   display: grid;
   justify-content: center;
+  padding-bottom: 20px;
 }
 
 select {
@@ -13,6 +14,41 @@ input[type="button"] {
 
 #question-section {
   display: none;
-  height: 100vh;
   width: 100%;
+}
+
+#submit-ans,
+#action-btns,
+.answer {
+  display: none;
+}
+
+select {
+  border-radius: 3px;
+  background: white;
+}
+
+select#number {
+  width: 5em;
+}
+
+#sub-selected {
+  display: block;
+  margin-top: 1em;
+  margin-left: 12.5em;
+}
+
+#real-question {
+  width: 22em;
+  word-wrap: break-word;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.single-question {
+  border: solid 1px gray;
+  margin-top: 5px;
+}
+h3 {
+  text-align: center;
 }

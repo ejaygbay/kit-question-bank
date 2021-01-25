@@ -21,16 +21,41 @@
         <option value="5">5</option>
         <option value="10">10</option>
       </select>
-      <input type="button" value="Submit" onclick="submitQuestion(event)" />
+      <input
+        type="button"
+        id="sub-selected"
+        value="Submit"
+        onclick="submitQuestion(event)"
+      />
     </section>
     <section id="question-section">
-      <div id="score">Score: <span>0</span></div>
-      <div id="correct">Correct: <span>0</span></div>
-      <div id="wrong">Wrong: <span>0</span></div>
+      <div id="score">Score:</div>
+      <div id="correct">Correct:</div>
+      <div id="wrong">Wrong:</div>
 
       <section id="questions"></section>
 
-      <input type="button" value="Answer" onclick="submitAnswers(event)" />
+      <br />
+      <input
+        type="button"
+        value="Submit"
+        onclick="submitAnswers(event)"
+        id="submit-ans"
+      />
+      <div id="action-btns">
+        <input
+          type="button"
+          value="Restart"
+          id="reset"
+          onclick="restartQuestion(event)"
+        />
+        <input
+          type="button"
+          value="Select"
+          id="select-que"
+          onclick="changeQuestion(event)"
+        />
+      </div>
     </section>
 
     <script src="script.js"></script>

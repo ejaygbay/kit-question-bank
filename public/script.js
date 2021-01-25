@@ -1,11 +1,18 @@
+let num_of_que = 0;
+
 const submitQuestion = (e) => {
   let subject = document.getElementById("subject").value;
   let num = document.getElementById("number").value;
   let URL = `http://127.0.0.1:3000/question/${subject}/${num}`;
+  num_of_que = Number(num);
 
-  console.log(subject, num);
   document.getElementById("subject-selection").style = "display: none";
   document.getElementById("question-section").style = "display: block";
+  document.getElementById("action-btns").style = "display: none";
+  document.getElementById("score").innerHTML = `Score: `;
+  document.getElementById("correct").innerHTML = `Correct: `;
+  document.getElementById("wrong").innerHTML = `Wrong: `;
+  document.getElementById("questions").innerHTML = "";
 
   // https://kit-question.glitch.me/question/math/3
   fetch(URL)
@@ -18,7 +25,7 @@ const submitQuestion = (e) => {
         let options = data.questions[ele].options;
         let option_keys = Object.keys(options);
 
-        let html = `<section id="question${index + 1}">
+        let html = `<section id="question${index + 1}" class="single-question">
             <h3>Question ${index + 1}</h3>
             <div id="real-question">${question}</div>
 
@@ -57,10 +64,16 @@ const checkAnswer = (e) => {
     correct_ans.classList.add("wrong");
     correct_ans.classList.remove("correct");
   }
+
+  let correct = document.querySelectorAll(".correct").length;
+  let wrong = document.querySelectorAll(".wrong").length;
+
+  if (correct + wrong === num_of_que) {
+    document.getElementById("submit-ans").style = "display: block";
+  }
 };
 
 const submitAnswers = (e) => {
-  console.log("Ans submited");
   let correct = document.querySelectorAll(".correct");
   let wrong = document.querySelectorAll(".wrong");
 
@@ -71,5 +84,27 @@ const submitAnswers = (e) => {
   }%`;
   document.getElementById("correct").innerHTML = `Correct: ${correct.length}`;
   document.getElementById("wrong").innerHTML = `Wrong: ${wrong.length}`;
-  console.log(correct.length, wrong.length, point);
+  document.getElementById("submit-ans").style = "display: none";
+  document.getElementById("action-btns").style = "display: block";
+
+  correct.forEach((ele) => {
+    ele.style = "background: #c6ffb3; display: block";
+  });
+
+  wrong.forEach((ele) => {
+    ele.style = "background: #ffc2b3; display: block";
+  });
+};
+
+const restartQuestion = (e) => {
+  document.getElementById("score").innerHTML = `Score: `;
+  document.getElementById("correct").innerHTML = `Correct: `;
+  document.getElementById("wrong").innerHTML = `Wrong: `;
+  document.getElementById("questions").innerHTML = "";
+  submitQuestion();
+};
+
+const changeQuestion = (e) => {
+  document.getElementById("subject-selection").style = "display: block";
+  document.getElementById("question-section").style = "display: none";
 };
