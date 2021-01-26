@@ -31,6 +31,37 @@ app.get("/", (req, res) => {
   res.sendFile(`${__dirname}/index.html`);
 });
 
+app.get("/api-key", (req, res) => {
+  let username = req.query.username;
+  let api_key = generateNumber(6);
+
+  readFromFile("api-keys.json", (data) => {
+    data[api_key] = username;
+    writeToFile("api-keys.json", JSON.stringify(data));
+  });
+  res.send(`This is your API Key: ${api_key}`);
+});
+
+const readFromFile = (file, callback) => {
+  fs.readFile(`${__dirname}/questions-folder/${file}`, "utf8", (err, fd) => {
+    return callback(JSON.parse(fd));
+  });
+};
+
+const writeToFile = (file, data) => {
+  fs.writeFile(`${__dirname}/questions-folder/${file}`, data, (err) => {
+    console.log("Error", err);
+  });
+};
+
+const generateNumber = (digit) => {
+  let arr = [];
+  for (let i = 1; i <= digit; i++) {
+    arr.push(Math.floor(Math.random() * 9));
+  }
+  return arr.join("");
+};
+
 // Access-Control-Allow-Origin:*
 
 app.get("/question/:subject/:questions", (req, res) => {

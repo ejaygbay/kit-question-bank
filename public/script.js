@@ -14,7 +14,7 @@ const submitQuestion = (e) => {
   document.getElementById("wrong").innerHTML = `Wrong: `;
   document.getElementById("questions").innerHTML = "";
 
-  // https://kit-question.glitch.me/question/math/3
+  // https://kit-questions.glitch.me/question/math/3
   fetch(URL)
     .then((response) => response.json())
     .then((data) => {
