@@ -122,15 +122,31 @@ app.get("/api-key", (req, res) => {
   }
 });
 
+// done
 app.get("/student", (req, res) => {
-  if (req.query && req.query.api_key && req.query.id) {
+  if (req.query && req.query.api_key) {
     let api_key = req.query.api_key;
     let student_id = req.query.id;
-    validateAPIKeyAndStudentID(api_key, student_id, (result) => {
+    validateAPIKey(api_key, (result) => {
       if (result) {
-        res.send(result);
+        if (student_id) {
+          validateStudentID(api_key, student_id, (result2) => {
+            if (result2) {
+              readFromFile("students.json", (data) => {
+                res.send(data[api_key].students_info[student_id]);
+              });
+            } else {
+              error.message = `there is no student with this id ${student_id}`;
+              res.send(error);
+            }
+          });
+        } else {
+          readFromFile("students.json", (data) => {
+            res.send(data[api_key].students_info);
+          });
+        }
       } else {
-        error.message = "You do not have any student yet";
+        error.message = "you do not have any student yet";
         res.send(error);
       }
     });
@@ -140,53 +156,126 @@ app.get("/student", (req, res) => {
   }
 });
 
-const validateAPIKeyAndStudentID = (api_key, student_id, callback) => {
-  readFromFile("students.json", (data) => {
-    validateAPIKey(data, api_key, (result) => {
+app.post("/student", (req, res) => {
+  if (req.body && req.body.api_key) {
+    let api_key = req.body.api_key;
+    let student_id = req.body.new_data.id;
+    let new_data = req.body.new_data;
+
+    validateAPIKey(api_key, (result) => {
       if (result) {
-        validateStudentID(
-          data[api_key].students_info,
-          student_id,
-          (stu_res) => {
-            return callback(data[api_key].students_info[student_id]);
+        validateStudentID(api_key, student_id, (result2) => {
+          if (!result2) {
+            readFromFile("students.json", (data) => {
+              let name = req.body.new_data.name;
+              data[api_key].students_info[student_id] = new_data;
+              writeToFile("students.json", JSON.stringify(data));
+              res.send({
+                status: 0,
+                message: `student ${name} was created with id: ${student_id}`,
+              });
+            });
+          } else {
+            error.message = `there is a student with this id ${student_id}`;
+            res.send(error);
           }
-        );
+        });
       } else {
-        return callback(result);
+        error.message = "you do not have any student yet";
+        res.send(error);
       }
     });
+  } else {
+    error.message = "missing parameter";
+    res.send(error);
+  }
+});
+
+// done
+app.delete("/student", (req, res) => {
+  if (req.body && req.body.api_key && req.body.id) {
+    let api_key = req.body.api_key;
+    let student_id = req.body.id;
+
+    validateAPIKey(api_key, (result) => {
+      if (result) {
+        validateStudentID(api_key, student_id, (result2) => {
+          if (result2) {
+            readFromFile("students.json", (data) => {
+              delete data[api_key].students_info[student_id];
+              writeToFile("students.json", JSON.stringify(data));
+              res.send({
+                status: 0,
+                message: `student ${data[api_key].students_info[student_id].name} was deleted`,
+              });
+            });
+          } else {
+            error.message = "there is no student with this id";
+            res.send(error);
+          }
+        });
+      } else {
+        error.message = "you do not have any student yet";
+        res.send(error);
+      }
+    });
+  } else {
+    error.message = "missing parameter";
+    res.send(error);
+  }
+});
+
+// done
+app.put("/student", (req, res) => {
+  if (req.body && req.body.api_key && req.body.id) {
+    let api_key = req.body.api_key;
+    let student_id = req.body.id;
+    let new_data = req.body.new_data;
+
+    validateAPIKey(api_key, (result) => {
+      if (result) {
+        validateStudentID(api_key, student_id, (result2) => {
+          if (result2) {
+            readFromFile("students.json", (data) => {
+              let name = data[api_key].students_info[student_id].name;
+              data[api_key].students_info[student_id] = new_data;
+              writeToFile("students.json", JSON.stringify(data));
+              res.send({
+                status: 0,
+                message: `student ${name} was updated`,
+              });
+            });
+          } else {
+            error.message = "there is no student with this id";
+            res.send(error);
+          }
+        });
+      } else {
+        error.message = "you do not have any student yet";
+        res.send(error);
+      }
+    });
+  } else {
+    error.message = "missing parameter";
+    res.send(error);
+  }
+});
+
+// done
+const validateAPIKey = (api_key, callback) => {
+  readFromFile("students.json", (data) => {
+    let all_api_keys = Object.keys(data);
+    all_api_keys.includes(api_key) ? callback(true) : callback(false);
   });
 };
 
-const validateAPIKey = (data, api_key, callback) => {
-  let all_api_keys = Object.keys(data);
-  all_api_keys.includes(api_key) ? callback(true) : callback(false);
+// done
+const validateStudentID = (api_key, student_id, callback) => {
+  readFromFile("students.json", (data) => {
+    let students_ids = Object.keys(data[api_key].students_info);
+    students_ids.includes(student_id) ? callback(true) : callback(false);
+  });
 };
-
-const validateStudentID = (data, student_id, callback) => {
-  let students_ids = Object.keys(data);
-  students_ids.includes(student_id) ? callback(true) : callback(false);
-};
-
-app.post("/student", (req, res) => {
-  // if (req.body && req.body.api_key) {
-  console.log("api key & student id post::", req.body);
-  res.send("create students");
-  // } else {
-  //   error.message = "missing parameter";
-  //   res.send(error);
-  // }
-});
-
-app.delete("/student", (req, res) => {
-  console.log("api key & student id delete::", req.query);
-  res.send("delete students");
-});
-
-app.put("/student", (req, res) => {
-  console.log("api key & student id put::", req.query);
-  res.send("update students");
-});
 
 // fs.readFile(`${__dirname}/questions-folder/math.txt`, "utf8", (err, fd) => {
 //   console.log("Error 222:::", err);
