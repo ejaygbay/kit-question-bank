@@ -15,6 +15,10 @@ const ERR2 = {
   message: "An error occurred, please try again",
 };
 
+let error = {
+  status: 1,
+};
+
 let subjects = ["math", "english"];
 
 app.use(express.urlencoded());
@@ -27,33 +31,26 @@ app.use(
   })
 );
 
+// done
 app.get("/", (req, res) => {
   res.sendFile(`${__dirname}/index.html`);
 });
 
-app.get("/api-key", (req, res) => {
-  let username = req.query.username;
-  let api_key = generateNumber(6);
-
-  readFromFile("api-keys.json", (data) => {
-    data[api_key] = username;
-    writeToFile("api-keys.json", JSON.stringify(data));
-  });
-  res.send(`This is your API Key: ${api_key}`);
-});
-
+// done
 const readFromFile = (file, callback) => {
   fs.readFile(`${__dirname}/questions-folder/${file}`, "utf8", (err, fd) => {
     return callback(JSON.parse(fd));
   });
 };
 
+// done
 const writeToFile = (file, data) => {
   fs.writeFile(`${__dirname}/questions-folder/${file}`, data, (err) => {
     console.log("Error", err);
   });
 };
 
+// done
 const generateNumber = (digit) => {
   let arr = [];
   for (let i = 1; i <= digit; i++) {
@@ -62,8 +59,7 @@ const generateNumber = (digit) => {
   return arr.join("");
 };
 
-// Access-Control-Allow-Origin:*
-
+// done
 app.get("/question/:subject/:questions", (req, res) => {
   let subject = req.params.subject;
   subject = subject.toLowerCase();
@@ -78,6 +74,7 @@ app.get("/question/:subject/:questions", (req, res) => {
   }
 });
 
+// done
 const getQuestions = (subject, num, callback) => {
   let path = `${__dirname}/questions-folder/${subject}.json`;
 
@@ -107,6 +104,89 @@ const getQuestions = (subject, num, callback) => {
     !err ? callback(data) : ERR2;
   });
 };
+
+// done
+app.get("/api-key", (req, res) => {
+  if (req.query.username) {
+    let username = req.query.username;
+    let api_key = generateNumber(6);
+
+    readFromFile("api-keys.json", (data) => {
+      data[api_key] = username;
+      writeToFile("api-keys.json", JSON.stringify(data));
+    });
+    res.send(`This is your API Key: ${api_key}`);
+  } else {
+    error.message = "missing parameter";
+    res.send(error);
+  }
+});
+
+app.get("/student", (req, res) => {
+  if (req.query && req.query.api_key && req.query.id) {
+    let api_key = req.query.api_key;
+    let student_id = req.query.id;
+    validateAPIKeyAndStudentID(api_key, student_id, (result) => {
+      if (result) {
+        res.send(result);
+      } else {
+        error.message = "You do not have any student yet";
+        res.send(error);
+      }
+    });
+  } else {
+    error.message = "missing parameter";
+    res.send(error);
+  }
+});
+
+const validateAPIKeyAndStudentID = (api_key, student_id, callback) => {
+  readFromFile("students.json", (data) => {
+    validateAPIKey(data, api_key, (result) => {
+      if (result) {
+        validateStudentID(
+          data[api_key].students_info,
+          student_id,
+          (stu_res) => {
+            return callback(data[api_key].students_info[student_id]);
+          }
+        );
+      } else {
+        return callback(result);
+      }
+    });
+  });
+};
+
+const validateAPIKey = (data, api_key, callback) => {
+  let all_api_keys = Object.keys(data);
+  all_api_keys.includes(api_key) ? callback(true) : callback(false);
+};
+
+const validateStudentID = (data, student_id, callback) => {
+  let students_ids = Object.keys(data);
+  students_ids.includes(student_id) ? callback(true) : callback(false);
+};
+
+app.post("/student", (req, res) => {
+  // if (req.body && req.body.api_key) {
+  console.log("api key & student id post::", req.body);
+  res.send("create students");
+  // } else {
+  //   error.message = "missing parameter";
+  //   res.send(error);
+  // }
+});
+
+app.delete("/student", (req, res) => {
+  console.log("api key & student id delete::", req.query);
+  res.send("delete students");
+});
+
+app.put("/student", (req, res) => {
+  console.log("api key & student id put::", req.query);
+  res.send("update students");
+});
 
 // fs.readFile(`${__dirname}/questions-folder/math.txt`, "utf8", (err, fd) => {
 //   console.log("Error 222:::", err);
