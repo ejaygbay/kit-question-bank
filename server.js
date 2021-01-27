@@ -5,16 +5,6 @@ const app = express();
 const PORT = 3000;
 const cors = require("cors");
 
-const ERR = {
-  status: 1,
-  message: "Please enter a valid subject and the number of questions",
-};
-
-const ERR2 = {
-  status: 2,
-  message: "An error occurred, please try again",
-};
-
 let error = {
   status: 1,
 };
@@ -70,7 +60,8 @@ app.get("/question/:subject/:questions", (req, res) => {
       res.send(data);
     });
   } else {
-    res.send(ERR);
+    error.message = "Please enter a valid subject and the number of questions";
+    res.send(error);
   }
 });
 
@@ -101,7 +92,12 @@ const getQuestions = (subject, num, callback) => {
       questions: final_questions,
     };
 
-    !err ? callback(data) : ERR2;
+    if (!err) return callback(data);
+    else {
+      error.status = 2;
+      error.message = "An error occurred, please try again";
+      return error;
+    }
   });
 };
 
@@ -109,13 +105,24 @@ const getQuestions = (subject, num, callback) => {
 app.get("/api-key", (req, res) => {
   if (req.query.username) {
     let username = req.query.username;
-    let api_key = generateNumber(6);
+    let api_key = generateNumber(13);
 
     readFromFile("api-keys.json", (data) => {
+      while (Object.keys(data).includes(api_key)) {
+        api_key = generateNumber(13);
+      }
       data[api_key] = username;
       writeToFile("api-keys.json", JSON.stringify(data));
     });
-    res.send(`This is your API Key: ${api_key}`);
+
+    readFromFile("students.json", (data) => {
+      while (Object.keys(data).includes(api_key)) {
+        api_key = generateNumber(13);
+      }
+      data[api_key] = { students_info: {} };
+      writeToFile("students.json", JSON.stringify(data));
+      res.send({ username: username, api_key: api_key });
+    });
   } else {
     error.message = "missing parameter";
     res.send(error);
@@ -142,11 +149,16 @@ app.get("/student", (req, res) => {
           });
         } else {
           readFromFile("students.json", (data) => {
-            res.send(data[api_key].students_info);
+            if (Object.keys(data[api_key].students_info).length > 0)
+              res.send(data[api_key].students_info);
+            else {
+              error.message = `you do not have any student yet`;
+              res.send(error);
+            }
           });
         }
       } else {
-        error.message = "you do not have any student yet";
+        error.message = `the api key: ${api_key} is not recognized`;
         res.send(error);
       }
     });
@@ -181,7 +193,7 @@ app.post("/student", (req, res) => {
           }
         });
       } else {
-        error.message = "you do not have any student yet";
+        error.message = `the api key: ${api_key} is not recognized`;
         res.send(error);
       }
     });
@@ -202,20 +214,22 @@ app.delete("/student", (req, res) => {
         validateStudentID(api_key, student_id, (result2) => {
           if (result2) {
             readFromFile("students.json", (data) => {
+              let name = data[api_key].students_info[student_id].name;
               delete data[api_key].students_info[student_id];
+
               writeToFile("students.json", JSON.stringify(data));
               res.send({
                 status: 0,
-                message: `student ${data[api_key].students_info[student_id].name} was deleted`,
+                message: `student ${name} was deleted`,
               });
             });
           } else {
-            error.message = "there is no student with this id";
+            error.message = `there is no student with this id: ${student_id}`;
             res.send(error);
           }
         });
       } else {
-        error.message = "you do not have any student yet";
+        error.message = `the api key: ${api_key} is not recognized`;
         res.send(error);
       }
     });
@@ -251,7 +265,7 @@ app.put("/student", (req, res) => {
           }
         });
       } else {
-        error.message = "you do not have any student yet";
+        error.message = `the api key: ${api_key} is not recognized`;
         res.send(error);
       }
     });
@@ -272,25 +286,14 @@ const validateAPIKey = (api_key, callback) => {
 // done
 const validateStudentID = (api_key, student_id, callback) => {
   readFromFile("students.json", (data) => {
-    let students_ids = Object.keys(data[api_key].students_info);
-    students_ids.includes(student_id) ? callback(true) : callback(false);
+    if (Object.keys(data[api_key].students_info).length > 0) {
+      let students_ids = Object.keys(data[api_key].students_info);
+      students_ids.includes(student_id) ? callback(true) : callback(false);
+    } else {
+      return callback(false);
+    }
   });
 };
-
-// fs.readFile(`${__dirname}/questions-folder/math.txt`, "utf8", (err, fd) => {
-//   console.log("Error 222:::", err);
-//   console.log("File data 222::", fd);
-// });
-
-// fs.writeFile(
-//   `${__dirname}/questions-folder/math.txt`,
-//   "hello",
-//   { flag: "a" },
-//   (err) => {
-//     console.log("Error", err);
-//     console.log("File data::");
-//   }
-// );
 
 app.listen(PORT, () => {
   console.log(`Your app is running on port ${PORT}`);
